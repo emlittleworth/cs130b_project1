@@ -4,31 +4,34 @@
 class VertexItem {
     public:
         VertexItem();
-        VertexItem(int, int, VertexItem*);
+        VertexItem(int, int);
         void set_id(int);
         int get_id();
         void set_weight(int);
         int get_weight();
         void set_next(VertexItem*);
         VertexItem* get_next();
+        void print();
+        void print_list_item(VertexItem*);
 
     private:
         int id;
         int weight;
         VertexItem* next;
-}
+};
 
 class AdjacencyList {
     public:
         AdjacencyList(int);
         int get_size();
+        VertexItem* get_array_ptr();
+        void set_array_ptr(VertexItem*);
         void insert(int, int, int);
-        void printlist();
+        void print_list();
         
     private:
         int size;
-        VertexItem adj_array[];
-
-}
+        VertexItem* array_ptr;
+};
 
 #endif

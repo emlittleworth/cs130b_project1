@@ -8,8 +8,8 @@ using namespace std;
 
 VertexItem::VertexItem() : id(-1), weight(-1), next(NULL) {} 
 
-VertexItem::VertexItem(int the_id, int the_weight, VertexItem* other) :
-    id(the_id), weight(the_weight), next(other) {}
+VertexItem::VertexItem(int the_id, int the_weight) :
+    id(the_id), weight(the_weight), next(NULL) {}
 
 void VertexItem::set_id(int the_id) { id = the_id;}
 
@@ -48,7 +48,12 @@ VertexItem* AdjacencyList::get_array_ptr() { return array_ptr;}
 void AdjacencyList::set_array_ptr(VertexItem* other) { array_ptr = other;}
 
 void AdjacencyList::insert(int first, int second, int weight) {
-
+    // insert makes a new VertexItem node (second, weight) that the
+    // VertexItem in the adjacency list points to (linked list)
+    VertexItem *p = new VertexItem(second, weight);
+    VertexItem *temp;
+    for(temp = &array_ptr[first]; temp->get_next() != NULL; temp = temp->get_next()) {}
+    temp->set_next(p);
 }
 
 void AdjacencyList::print_list() {
