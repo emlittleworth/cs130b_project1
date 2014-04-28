@@ -2,6 +2,7 @@
 // CS 130B Project 1
 
 #include "adjacency_list.cpp"
+#include "tree.cpp"
 
 int main() {
     int n, m, k, algorithm;
@@ -48,6 +49,7 @@ int main() {
         }
     }
 
+/*
     Graph.print_list();
 
     for (int i = 0; i < k; i++) {
@@ -56,7 +58,9 @@ int main() {
         }
         cout << "\n";
     }
-
+*/
+    // prepare to create the tree
+    TreeNode* TreeFirst, TreeLast;
 
 
 }
