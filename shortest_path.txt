@@ -1,0 +1,63 @@
+/*
+class Vertex;
+class Vertex{
+public:
+        Vertex( int i)       {dist = 10000; known = false;
+                              id = i;  path = Null;};
+	int get_dist()            {return dist;};
+	bool set_dist(int val)    {dist=val;};
+	bool get_known()          {return known;};
+	bool set_known(bool val)  {known=val;};
+	vertex get_path()         {return path;};
+	//bool set_path(vertex *v)   {known=val;};
+	set_path(Vertex *v)   {path=v;};
+        printPath();
+private:
+	int     dist;
+	bool    known;
+        int     id;
+	Vertex  *path;
+};
+
+void Vertex:: printPath(){
+  if (path != Null)
+     { path->printPath();
+       cout << " to " ; }
+  cout << this.id; }
+*/
+
+Idea:
+-make three arrays: known, dist, path
+-identify they array itme by the index = vertex number
+-therefore, create new arrays each time
+-in case there are two or more shortest paths, select in lexicographic order?
+    -don't know how to approch this as Dijkstra's ingnores this
+    -maybe add a unique flag and create different paths off of that
+-need to return shortest path and total distance
+    -store path in a tree (maybe called path)?
+
+void Dijkstra( Vertex *s ) {
+    Vertex *v,*w;
+    Edge *e;
+    // We use e->COST() to return the weight of the
+    // edge from vertex v->id to vertex w->id
+    s->set_dist(0);
+    for( ; ; )
+     { if (all vertices have the "known" field set to true) exit;
+       // Let v be an "unmarked" vertex with smallest v->dist , i.e.,
+       // from all the vertices with the "known" field false
+       // vertex v has least "dist" value.
+       d = MIN { y->dist() | !(y->get_known()) and y is a Vertex}
+       v = Element of { y | !(y->get_known()) && y->get_dist() is equal to d};
+       v->set_known(true);
+       for each edge e incident from v do
+        { Assume that edge e is directed from v->id to w->id
+          if (!w->get_known)
+            if (v->get_dist() + e->COST() < w->get_dist())
+             { // update w //
+               w->set_dist(v->get_dist() + e->COST())
+               w->set_path(v);
+             }
+        }
+     }
+  }

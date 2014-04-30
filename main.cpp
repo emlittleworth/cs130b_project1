@@ -40,25 +40,33 @@ int main() {
     // create array for each group
     for (int i = 0; i < k; i++) {
         cin >> group_size;
-        int *temp = new int[group_size];
+        int *temp = new int[group_size + 1];
+        // make the array with extra space to have a 
+        // visited/unvisited flag at the beginning
+        // Groups[i][0] = marked?
+        // Groups[i][1] = number of verticies in group
+        // note: array size = Groups[i][1] + 1
         Groups[i] = temp;
-        Groups[i][0] = group_size;
-        for (int j = 1; j <= Groups[i][0]; j++) {
+        Groups[i][0] = 0;
+        Groups[i][1] = group_size;
+        for (int j = 2; j <= Groups[i][1]+1; j++) {
             cin >> vertex;
             Groups[i][j] = vertex;
         }
     }
 
-/*
+
     Graph.print_list();
 
     for (int i = 0; i < k; i++) {
-        for (int j = 0; j <= Groups[i][0]; j++) {
+        cout << "Marked? " << Groups[i][0];
+        cout << ", NumVertex: " << Groups[i][1] << " - ";
+        for (int j = 2; j <= Groups[i][1]+1; j++) {
             cout << Groups[i][j] << " ";
         }
         cout << "\n";
     }
-*/
+
     // prepare to create the tree
     TreeNode* TreeFirst, TreeLast;
 
