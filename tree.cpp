@@ -52,3 +52,16 @@ void Tree::insert(int vertex_id, int vertex_weight) {
     }
 }
 
+void Tree::insert(Tree* other) {
+    TreeNode *p;
+    for(p = other->get_first(); p != NULL; p->get_next()) {
+        TreeNode* temp = new TreeNode(p->get_vertex_id(), p->get_vertex_weight());
+        last->next = temp;
+        last = temp;
+        tree_size += 1;
+        total_weight += p->get_vertex_weight();
+    }
+}
+
+
+

@@ -1,8 +1,9 @@
 // Emily Littleworth
 // CS 130B Project 1
 
-#include "adjacency_list.cpp"
-#include "tree.cpp"
+//#include "adjacency_list.cpp"
+//#include "tree.cpp"
+#include "algorithm1.cpp"
 
 int main() {
     int n, m, k, algorithm;
@@ -40,16 +41,16 @@ int main() {
     // create array for each group
     for (int i = 0; i < k; i++) {
         cin >> group_size;
-        int *temp = new int[group_size + 1];
+        int *temp = new int[group_size + 2];
         // make the array with extra space to have a 
         // visited/unvisited flag at the beginning
         // Groups[i][0] = marked?
-        // Groups[i][1] = number of verticies in group
-        // note: array size = Groups[i][1] + 1
+        // Groups[i][1] = number of vertices in group
+        // note: array size = Groups[i][1] + 2
         Groups[i] = temp;
         Groups[i][0] = 0;
         Groups[i][1] = group_size;
-        for (int j = 2; j <= Groups[i][1]+1; j++) {
+        for (int j = 2; j < Groups[i][1]+2; j++) {
             cin >> vertex;
             Groups[i][j] = vertex;
         }
@@ -61,7 +62,7 @@ int main() {
     for (int i = 0; i < k; i++) {
         cout << "Marked? " << Groups[i][0];
         cout << ", NumVertex: " << Groups[i][1] << " - ";
-        for (int j = 2; j <= Groups[i][1]+1; j++) {
+        for (int j = 2; j < Groups[i][1]+2; j++) {
             cout << Groups[i][j] << " ";
         }
         cout << "\n";
@@ -69,6 +70,9 @@ int main() {
 
     // prepare to create the tree
     TreeNode* TreeFirst, TreeLast;
+
+    algorithm1(n, m, k, Graph, Groups);
+
 
 
 }

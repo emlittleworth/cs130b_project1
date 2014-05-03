@@ -28,7 +28,8 @@ class Tree {
         void set_last(TreeNode*);
         int get_tree_size();
         int get_total_weight();
-        void insert(int, int); 
+        void insert(int, int);
+        void insert(Tree*);
 
     private:
         TreeNode* first;
