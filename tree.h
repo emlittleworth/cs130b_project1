@@ -22,6 +22,7 @@ class TreeNode {
 class Tree {
     public:
         Tree();
+        Tree(Tree*);
         TreeNode* get_first();
         void set_first(TreeNode*);
         TreeNode* get_last();
@@ -30,6 +31,7 @@ class Tree {
         int get_total_weight();
         void insert(int, int);
         void insert(Tree*);
+        void printTree();
 
     private:
         TreeNode* first;

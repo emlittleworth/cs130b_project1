@@ -1,9 +1,12 @@
 // Emily Littleworth
 // CS 130B Project 1
 
-//#include "adjacency_list.cpp"
-//#include "tree.cpp"
-#include "algorithm1.cpp"
+#include "adjacency_list.h"
+#include "tree.h"
+#include "algorithm1.h"
+#include <iostream>
+using namespace std;
+
 
 int main() {
     int n, m, k, algorithm;

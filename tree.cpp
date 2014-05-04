@@ -25,6 +25,13 @@ void TreeNode::set_next(TreeNode* other) { next = other; }
 
 Tree::Tree() : first(NULL), last(NULL), tree_size(0), total_weight(0) {}
 
+Tree::Tree(Tree* other) {
+    first = other->first;
+    last = other->last;
+    tree_size = other->tree_size;
+    total_weight = other->total_weight;
+}
+
 TreeNode* Tree::get_first() { return first; }
 
 void Tree::set_first(TreeNode* other) { first = other; }
@@ -63,5 +70,13 @@ void Tree::insert(Tree* other) {
     }
 }
 
+void Tree::printTree() {
+    TreeNode *p;
+    cout << "Start: ";
+    for(p = first; p != NULL; p->get_next()) {
+        cout << p->get_vertex_id() << " ";
+    }
+    cout << "End\n";
+}
 
 

@@ -1,6 +1,8 @@
-#include "adjacency_list.cpp"
-#include "tree.cpp"
-#include "lexicographic.cpp"
+#include "adjacency_list.h"
+#include "tree.h"
+#include "lexicographic.h"
+#include "shortest_path.h"
+#include <iostream>
 
 /*
 Idea:
@@ -14,16 +16,11 @@ Idea:
     -store path in a tree (maybe called path)?
 */
 
-
-struct Vertex {
-    int known;
-    int dist;
-    int path;
-};
-
-void Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
+Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
     int i, smallest_dist, v, w, w_weight;
     VertexItem* neighbor;
+    Tree* return_path;
+    TreeNode* p;
     Vertex* vertex_array = new Vertex[n];
     for (i = 0; i < n; i++) {
         vertex_array[i].known = 0;
@@ -49,6 +46,16 @@ void Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
         }
 
         vertex_array[v].known = 1;
+        // if v is in tree T, then we can stop
+        for (p = T->get_first(); p != NULL; p = p->get_next()) {
+            if (p->get_vertex_id() == v)
+                break;
+        }
+        if (p->get_vertex_id() == v) {
+            // get path to return
+            path_into_tree(vertex_array, v, return_path);
+            return return_path;
+        }
 
         for (neighbor = Graph.get_array_ptr()[v].get_next();
                 neighbor != NULL; neighbor = neighbor->get_next()) {
@@ -59,14 +66,15 @@ void Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
                     vertex_array[w].dist = vertex_array[v].dist + w_weight;
                     vertex_array[w].path = v;
                 } else if (vertex_array[v].dist + w_weight == vertex_array[w].dist) {
-                    if (lexicographic_order(vertex_array, v, w))
+                    if (lexicographic(vertex_array, v, w))
                         vertex_array[w].path = v;
-                }
                 }
             }
         }
     }
 
-
-  }
+    // get path to return
+    path_into_tree(vertex_array, v, return_path);
+    return return_path;
+}
 

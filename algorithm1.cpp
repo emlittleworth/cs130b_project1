@@ -1,5 +1,9 @@
-#include "adjacency_list.cpp"
-#include "tree.cpp"
+#include "adjacency_list.h"
+#include "tree.h"
+#include "shortest_path.h"
+#include "lexicographic.h"
+#include <iostream>
+using namespace std;
 
 void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
 
@@ -32,7 +36,7 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
             // find a shortest path from vertex in g_i to vertex in T
             for (j = 2; j < Groups[i][1] + 2; j++) {
                 // find a shortest path from vertex j in g_i to vertex in T
-                current_path = Dijkstra(Groups[i][j], T, Graph);
+                current_path = Dijkstra(n, Groups[i][j], T, Graph);
                 current_weight = current_path.get_total_weight();
 
                 // compare current path to R_i and d_i
@@ -47,11 +51,11 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                     group = i;
                 } else if (current_weight == d_i) {
                     // use lexicographic order
-                    if (lexicographic_order(current_path, R_i) == 1) {
+                    if (lexicographic(&current_path, &R_i) == 1) {
                         R_i = current_path;
                         d_i = current_weight;
                         group = i;
-                    } else if (lexicographic_order(current_path, R_i) == 2) {
+                    } else if (lexicographic(&current_path, &R_i) == 2) {
                         if (i < group) {
                             R_i = current_path;
                             d_i = current_weight;
@@ -63,7 +67,7 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
         }
 
         // add R_i to T and mark group as reached
-        T->insert(R_i);
+        T->insert(&R_i);
         Groups[group][0] = 1;
 
         cout << group << "\n";
@@ -71,21 +75,6 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
 
     //print all vertices in T from smallest values to largest per line
     //print sum of the weight of all the endges in T in one line
-}
-
-
-
-        
-
-
-
-            
-
-    }
-
-
-
-
     Graph.print_list();
 
     for (int i = 0; i < k; i++) {
