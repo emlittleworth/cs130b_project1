@@ -4,15 +4,19 @@
 #include <iostream>
 using namespace std;
 
-void path_into_tree(Vertex* &vertex_array, int v, Tree* T) {
-    if (vertex_array[v].path != -1)
+void path_into_tree(Vertex* &vertex_array, int v, Tree* &T) {
+    if (vertex_array[v].path != -1) {
+        //cout << "PATHINTOTREE v = " << v << " " << vertex_array[v].path << "\n"; //DEBUG
         path_into_tree(vertex_array, vertex_array[v].path, T);
+    }
     T->insert(v, vertex_array[v].dist);
+    //T->print_tree(); //DEBUG
+    cout << v << "\n";
 }
 
 int lexicographic(Vertex* &vertex_array, int v, int w) {
-    Tree* v_path;
-    Tree* w_path;
+    Tree* v_path = new Tree;
+    Tree* w_path = new Tree;
     TreeNode* v_ptr;
     TreeNode* w_ptr;
     path_into_tree(vertex_array, v, v_path);

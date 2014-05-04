@@ -26,6 +26,15 @@ void TreeNode::set_next(TreeNode* other) { next = other; }
 Tree::Tree() : first(NULL), last(NULL), tree_size(0), total_weight(0) {}
 
 Tree::Tree(Tree* other) {
+    TreeNode* temp;
+    TreeNode* next;
+    // we first delete the current tree
+    for (temp = first; temp != NULL; temp = temp->next) {
+        next = temp->next;
+        delete temp;
+        temp = next;
+    }
+    // now point ptrs to other tree and set size and weight
     first = other->first;
     last = other->last;
     tree_size = other->tree_size;
@@ -70,7 +79,7 @@ void Tree::insert(Tree* other) {
     }
 }
 
-void Tree::printTree() {
+void Tree::print_tree() {
     TreeNode *p;
     cout << "Start: ";
     for(p = first; p != NULL; p->get_next()) {

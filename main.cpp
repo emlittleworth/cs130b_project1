@@ -47,6 +47,7 @@ int main() {
         int *temp = new int[group_size + 2];
         // make the array with extra space to have a 
         // visited/unvisited flag at the beginning
+        // and to store the group_size
         // Groups[i][0] = marked?
         // Groups[i][1] = number of vertices in group
         // note: array size = Groups[i][1] + 2
@@ -62,6 +63,7 @@ int main() {
 
     Graph.print_list();
 
+    // print groups
     for (int i = 0; i < k; i++) {
         cout << "Marked? " << Groups[i][0];
         cout << ", NumVertex: " << Groups[i][1] << " - ";
@@ -71,11 +73,13 @@ int main() {
         cout << "\n";
     }
 
-    // prepare to create the tree
-    TreeNode* TreeFirst, TreeLast;
-
-    algorithm1(n, m, k, Graph, Groups);
-
-
+    if (algorithm == 1)
+        algorithm1(n, m, k, Graph, Groups);
+    else if (algorithm == 2)
+        ;
+    else
+        cout << "Incorrect algorithm number. Please choose 1 or 2.\n";
+    
+    return 0;
 
 }

@@ -3,58 +3,59 @@
 #include "lexicographic.h"
 #include "shortest_path.h"
 #include <iostream>
-
-/*
-Idea:
--make three arrays: known, dist, path
--identify they array itme by the index = vertex number
--therefore, create new arrays each time
--in case there are two or more shortest paths, select in lexicographic order?
-    -don't know how to approch this as Dijkstra's ingnores this
-    -maybe add a unique flag and create different paths off of that
--need to return shortest path and total distance
-    -store path in a tree (maybe called path)?
-*/
+using namespace std;
 
 Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
     int i, smallest_dist, v, w, w_weight;
     VertexItem* neighbor;
-    Tree* return_path;
+    Tree* return_path = new Tree;
     TreeNode* p;
     Vertex* vertex_array = new Vertex[n];
+
+    // rather than creating a new vertex class, instead will use
+    // an array of size n of the vertex struct
+    // vertex stuct includes known, dist, and path
     for (i = 0; i < n; i++) {
         vertex_array[i].known = 0;
         vertex_array[i].dist = 1000;
         vertex_array[i].path = -1;
     }
 
+    // for the first vertex, set dist as 0
     vertex_array[s].dist = 0;
 
     while(1) {
-        for (i = 0; i < n; i++) {
-            if (vertex_array[i].known == 0)
+        for (i = 0; i < n; i++) { // check if each vertex is known
+            if (!vertex_array[i].known) // if the vertex is not known, break
                 break;
         }
-        if (i == n) break;
+        if (i == n) break; // if i == n, all verteces are known, we are done
 
         smallest_dist = 1000;
         for (i = 0; i < n; i++) {
-            if (vertex_array[i].known == 0) {
+            if (!vertex_array[i].known) { // if vertex is not known, look at dist
                 if (vertex_array[i].dist < smallest_dist) 
-                    v = i;
+                    v = i; // set v to the vertex not known with the smallest dist
             }
         }
 
         vertex_array[v].known = 1;
+        cout << "V is now known, at v = " << v << "\n"; //DEBUG
+        for (i = 0; i < n; i++) {
+            cout << "For v = " << i;
+            cout << " known = " << vertex_array[i].known;
+            cout << " dist = " << vertex_array[i].dist;
+            cout << " path = " << vertex_array[i].path << "\n";
+        }//DEBUG
+
         // if v is in tree T, then we can stop
         for (p = T->get_first(); p != NULL; p = p->get_next()) {
-            if (p->get_vertex_id() == v)
-                break;
-        }
-        if (p->get_vertex_id() == v) {
-            // get path to return
-            path_into_tree(vertex_array, v, return_path);
-            return return_path;
+            if (p->get_vertex_id() == v) {
+                path_into_tree(vertex_array, v, return_path);
+                cout << T->get_tree_size() << "\n"; //DEBUG
+                //return_path->print_tree(); //DEBUG
+                return return_path;
+            }
         }
 
         for (neighbor = Graph.get_array_ptr()[v].get_next();
