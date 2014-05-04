@@ -1,6 +1,6 @@
+#include "tree.h"
 #include <iostream>
 using namespace std;
-#include "tree.h"
 
 // class TreeNode methods
 
@@ -54,7 +54,18 @@ int Tree::get_tree_size() { return tree_size; }
 int Tree::get_total_weight() { return total_weight; }
 
 void Tree::insert(int vertex_id, int vertex_weight) {
-    TreeNode* p = new TreeNode(vertex_id, vertex_weight);
+    
+    // if the vertex_id is already in tree, lets exclude it
+    TreeNode *ptr;
+    for(ptr = first; ptr != NULL; ptr = ptr->get_next()) {
+        if (vertex_id == ptr->vertex_id)
+            return;
+    } // let's hope this is ok
+    
+
+    TreeNode* p = new TreeNode;
+    p->vertex_id = vertex_id;
+    p->vertex_weight = vertex_weight;
     if (tree_size == 0) {
         first = p;
         last = p;
@@ -70,7 +81,19 @@ void Tree::insert(int vertex_id, int vertex_weight) {
 
 void Tree::insert(Tree* other) {
     TreeNode *p;
-    for(p = other->get_first(); p != NULL; p->get_next()) {
+    for(p = other->get_first(); p != NULL; p = p->get_next()) {
+        
+        // if the vertex_id is already in tree, lets exclude it
+        TreeNode *ptr;
+        for(ptr = first; ptr != NULL; ptr = ptr->get_next()) {
+            if (p->get_vertex_id() == ptr->vertex_id)
+                break;
+        }
+        if (ptr != NULL)
+            continue;
+        // let's hope this is ok
+        
+
         TreeNode* temp = new TreeNode(p->get_vertex_id(), p->get_vertex_weight());
         last->next = temp;
         last = temp;
@@ -81,11 +104,11 @@ void Tree::insert(Tree* other) {
 
 void Tree::print_tree() {
     TreeNode *p;
-    cout << "Start: ";
-    for(p = first; p != NULL; p->get_next()) {
+    cout << "start tree: ";
+    for(p = first; p != NULL; p = p->get_next()) {
         cout << p->get_vertex_id() << " ";
-    }
-    cout << "End\n";
+    } 
+    cout << "end\n";
 }
 
 

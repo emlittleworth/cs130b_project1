@@ -40,20 +40,11 @@ Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
         }
 
         vertex_array[v].known = 1;
-        cout << "V is now known, at v = " << v << "\n"; //DEBUG
-        for (i = 0; i < n; i++) {
-            cout << "For v = " << i;
-            cout << " known = " << vertex_array[i].known;
-            cout << " dist = " << vertex_array[i].dist;
-            cout << " path = " << vertex_array[i].path << "\n";
-        }//DEBUG
 
         // if v is in tree T, then we can stop
         for (p = T->get_first(); p != NULL; p = p->get_next()) {
             if (p->get_vertex_id() == v) {
                 path_into_tree(vertex_array, v, return_path);
-                cout << T->get_tree_size() << "\n"; //DEBUG
-                //return_path->print_tree(); //DEBUG
                 return return_path;
             }
         }

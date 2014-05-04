@@ -2,6 +2,7 @@
 #include "tree.h"
 #include "shortest_path.h"
 #include "lexicographic.h"
+#include "merge_sort.h"
 #include <iostream>
 using namespace std;
 
@@ -18,6 +19,7 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
     // and mark as reached
     T->insert(Groups[0][2], 0);
     Groups[0][0] = 1;
+    cout << "0\n";
     
     while(1) {
         // check if there is at least one group that is unreached
@@ -32,29 +34,13 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
         group = 1000;
 
         for(i = 0; i < k; i++) {
-            if (Groups[i][0] == 1) // if group is reached, continue
+            if (Groups[i][0] == 1)
                 continue;
 
             // find a shortest path from vertex in g_i to vertex in T
             for (j = 2; j < Groups[i][1] + 2; j++) {
-                cout << "Working on group g_" << i << " vertex " << Groups[i][j] << "...\n";
-                for (int i = 0; i < k; i++) {
-                    cout << "Marked? " << Groups[i][0];
-                    cout << ", NumVertex: " << Groups[i][1] << " - ";
-                    for (int j = 2; j < Groups[i][1]+2; j++) {
-                        cout << Groups[i][j] << " ";
-                    }
-                    cout << "\n";
-                } //DEBUG
-
                 // find a shortest path from vertex j in g_i to vertex in T
                 current_path = Dijkstra(n, Groups[i][j], T, Graph);
-                //cout << current_path->get_first()->get_vertex_id() << "\n";
-                //cout << current_path->get_last()->get_vertex_id() << "\n";
-
-                //current_path->print_tree();
-
-
                 current_weight = current_path->get_total_weight();
 
                 // compare current path to R_i and d_i
@@ -76,28 +62,33 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                         }
                     }
                 }
+
             }
         }
 
         // add R_i to T and mark group as reached
+        cout << "Path from group " << group << "\n";//DEBUG
+        R_i->print_tree();//DEBUG
         T->insert(R_i);
         Groups[group][0] = 1;
-
         cout << group << "\n";
     }
 
+    cout << "Print sorted tree:\n";//DEBUG
+
     //print all vertices in T from smallest values to largest per line
     //print sum of the weight of all the endges in T in one line
-    Graph.print_list();
-
-    for (int i = 0; i < k; i++) {
-        cout << "Marked? " << Groups[i][0];
-        cout << ", NumVertex: " << Groups[i][1] << " - ";
-        for (int j = 2; j < Groups[i][1]+2; j++) {
-            cout << Groups[i][j] << " ";
-        }
-        cout << "\n";
+    int* final_array = new int[T->get_tree_size()];
+    int* temp = new int[T->get_tree_size()];
+    int step = 0;
+    TreeNode* final_p;
+    for(final_p = T->get_first(); final_p != NULL; final_p = final_p->get_next()) {
+        final_array[step] = final_p->get_vertex_id();
+        step++;
     }
-    
+    merge_sort(final_array, temp, 0, T->get_tree_size()-1);
+    for (step = 0; step < T->get_tree_size(); step++)
+        cout << final_array[step] << "\n";
+    cout << T->get_total_weight() << "\n";
 
 }

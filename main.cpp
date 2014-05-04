@@ -61,6 +61,7 @@ int main() {
     }
 
 
+    /*
     Graph.print_list();
 
     // print groups
@@ -72,6 +73,7 @@ int main() {
         }
         cout << "\n";
     }
+    */
 
     if (algorithm == 1)
         algorithm1(n, m, k, Graph, Groups);
