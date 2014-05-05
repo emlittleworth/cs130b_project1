@@ -31,6 +31,7 @@ class Tree {
         int get_total_weight();
         void insert(int, int);
         void insert(Tree*);
+        void insert(Tree*, int);
         void print_tree();
 
     private:

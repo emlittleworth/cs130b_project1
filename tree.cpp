@@ -102,6 +102,29 @@ void Tree::insert(Tree* other) {
     }
 }
 
+void Tree::insert(Tree* other, int option) {
+    TreeNode *p;
+    for(p = other->get_first(); p->get_next() != NULL; p = p->get_next()) {
+        
+        // if the vertex_id is already in tree, lets exclude it
+        TreeNode *ptr;
+        for(ptr = first; ptr != NULL; ptr = ptr->get_next()) {
+            if (p->get_vertex_id() == ptr->vertex_id)
+                break;
+        }
+        if (ptr != NULL)
+            continue;
+        // let's hope this is ok
+        
+
+        TreeNode* temp = new TreeNode(p->get_vertex_id(), p->get_vertex_weight());
+        last->next = temp;
+        last = temp;
+        tree_size += 1;
+        total_weight += p->get_vertex_weight();
+    }
+}
+
 void Tree::print_tree() {
     TreeNode *p;
     cout << "start tree: ";

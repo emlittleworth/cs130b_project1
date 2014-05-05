@@ -69,7 +69,9 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
         // add R_i to T and mark group as reached
         cout << "Path from group " << group << "\n";//DEBUG
         R_i->print_tree();//DEBUG
-        T->insert(R_i);
+        T->insert(R_i, 0);
+        // overload insert function, for this call,
+        // don't include last node in path (repeats)
         Groups[group][0] = 1;
         cout << group << "\n";
     }
