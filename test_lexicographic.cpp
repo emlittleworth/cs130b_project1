@@ -25,7 +25,7 @@ int main() {
     // now we have a vertex array with each vertex
     // create some test paths to see if function
     // is doing what it is supposed to
-    cout << "Now testing vertex*& comparison. There should be three 1s:\n";
+    cout << "Now testing vertex*& comparison. There should be three 0s:\n";
     cout << lexicographic(vertex_array,3,5) << " ";
     cout << lexicographic(vertex_array,8,9) << " ";
     cout << lexicographic(vertex_array,9,0) << "\n";
@@ -67,7 +67,7 @@ int main() {
 
     // now we have some paths to work with, check
     // if function is doing what it is supposed to
-    cout << "Now testing Tree* comparison. There should be five 1s:\n";
+    cout << "Now testing Tree* comparison. There should be five 0s:\n";
     cout << lexicographic(best_option, test_1) << " ";
     cout << lexicographic(best_option, test_2) << " ";
     cout << lexicographic(best_option, test_3) << " ";

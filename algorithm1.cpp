@@ -50,7 +50,7 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                     group = i;
                 } else if (current_weight == d_i) {
                     // use lexicographic order
-                    if (lexicographic(current_path, R_i) == 1) {
+                    if (!lexicographic(current_path, R_i)) {
                         R_i = current_path;
                         d_i = current_weight;
                         group = i;
@@ -67,16 +67,18 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
         }
 
         // add R_i to T and mark group as reached
-        cout << "Path from group " << group << "\n";//DEBUG
-        R_i->print_tree();//DEBUG
-        T->insert(R_i, 0);
-        // overload insert function, for this call,
-        // don't include last node in path (repeats)
+        //cout << "R_i weight = " << R_i->get_total_weight() << " ";//DEBUG
+        //R_i->print_tree();//DEBUG
+        int real_weight = R_i->find_total_weight(Graph);
+        R_i->set_total_weight(real_weight);
+        T->insert(R_i);
+        //cout << "T weight = " << T->get_total_weight() << " ";//DEBUG
+        //T->print_tree();
         Groups[group][0] = 1;
         cout << group << "\n";
     }
 
-    cout << "Print sorted tree:\n";//DEBUG
+    //cout << "Print sorted tree:\n";//DEBUG
 
     //print all vertices in T from smallest values to largest per line
     //print sum of the weight of all the endges in T in one line

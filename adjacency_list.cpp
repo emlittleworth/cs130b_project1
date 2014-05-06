@@ -63,4 +63,12 @@ void AdjacencyList::print_list() {
     }
 }
 
+int AdjacencyList::get_edge_weight(int first, int second) {
+    VertexItem* ptr;
+    for (ptr = array_ptr[first].get_next(); ptr != NULL; ptr = ptr->get_next()) {
+        if (ptr->get_id() == second)
+            return ptr->get_weight();
+    }
+    return 0;
+}
 

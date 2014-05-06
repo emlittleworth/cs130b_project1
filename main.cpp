@@ -61,9 +61,9 @@ int main() {
     }
 
 
-    /*
-    Graph.print_list();
+    //Graph.print_list();
 
+    /*
     // print groups
     for (int i = 0; i < k; i++) {
         cout << "Marked? " << Groups[i][0];

@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "adjacency_list.h"
 #include <iostream>
 using namespace std;
 
@@ -53,6 +54,8 @@ int Tree::get_tree_size() { return tree_size; }
 
 int Tree::get_total_weight() { return total_weight; }
 
+void Tree::set_total_weight(int sum) { total_weight = sum; }
+
 void Tree::insert(int vertex_id, int vertex_weight) {
     
     // if the vertex_id is already in tree, lets exclude it
@@ -60,7 +63,7 @@ void Tree::insert(int vertex_id, int vertex_weight) {
     for(ptr = first; ptr != NULL; ptr = ptr->get_next()) {
         if (vertex_id == ptr->vertex_id)
             return;
-    } // let's hope this is ok
+    }
     
 
     TreeNode* p = new TreeNode;
@@ -79,10 +82,9 @@ void Tree::insert(int vertex_id, int vertex_weight) {
     }
 }
 
-void Tree::insert(Tree* other) {
+void Tree::insert(Tree* &other) {
     TreeNode *p;
     for(p = other->get_first(); p != NULL; p = p->get_next()) {
-        
         // if the vertex_id is already in tree, lets exclude it
         TreeNode *ptr;
         for(ptr = first; ptr != NULL; ptr = ptr->get_next()) {
@@ -91,47 +93,33 @@ void Tree::insert(Tree* other) {
         }
         if (ptr != NULL)
             continue;
-        // let's hope this is ok
-        
 
+        //cout << "Adding new node into tree, vertex = " << p->get_vertex_id();
+        //cout << ", weight = " << p->get_vertex_weight() << "\n";//DEBUG
         TreeNode* temp = new TreeNode(p->get_vertex_id(), p->get_vertex_weight());
         last->next = temp;
         last = temp;
-        tree_size += 1;
-        total_weight += p->get_vertex_weight();
+        tree_size += 1;;
     }
-}
-
-void Tree::insert(Tree* other, int option) {
-    TreeNode *p;
-    for(p = other->get_first(); p->get_next() != NULL; p = p->get_next()) {
-        
-        // if the vertex_id is already in tree, lets exclude it
-        TreeNode *ptr;
-        for(ptr = first; ptr != NULL; ptr = ptr->get_next()) {
-            if (p->get_vertex_id() == ptr->vertex_id)
-                break;
-        }
-        if (ptr != NULL)
-            continue;
-        // let's hope this is ok
-        
-
-        TreeNode* temp = new TreeNode(p->get_vertex_id(), p->get_vertex_weight());
-        last->next = temp;
-        last = temp;
-        tree_size += 1;
-        total_weight += p->get_vertex_weight();
-    }
+    total_weight += other->get_total_weight();
 }
 
 void Tree::print_tree() {
-    TreeNode *p;
-    cout << "start tree: ";
+    TreeNode* p;
+    cout << "tree (id, wt) -";
     for(p = first; p != NULL; p = p->get_next()) {
-        cout << p->get_vertex_id() << " ";
+        cout << " (" << p->get_vertex_id() << ", " << p->get_vertex_weight() << ")";
     } 
-    cout << "end\n";
+    cout << "\n";
+}
+
+int Tree::find_total_weight(AdjacencyList &Graph) {
+    int sum = 0;
+    TreeNode* p;
+    for (p = first; p->get_next() != NULL; p = p->get_next()) {
+        sum += Graph.get_edge_weight(p->get_vertex_id(), p->get_next()->get_vertex_id());
+    }
+    return sum;
 }
 
 

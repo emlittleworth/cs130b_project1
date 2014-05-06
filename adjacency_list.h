@@ -28,6 +28,7 @@ class AdjacencyList {
         void set_array_ptr(VertexItem*);
         void insert(int, int, int);
         void print_list();
+        int get_edge_weight(int, int);
         
     private:
         int size;

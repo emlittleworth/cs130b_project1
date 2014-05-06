@@ -11,31 +11,40 @@ void path_into_tree(Vertex* &vertex_array, int v, Tree* &T) {
     T->insert(v, vertex_array[v].dist);
 }
 
-int lexicographic(Tree* current_path, Tree* R_i) {
-    current_path->print_tree();//DEBUG
-    R_i->print_tree();//DEBUG
+/*void complete_tree_weights(Tree* &T, AdjacencyList &Graph) {
+    TreeNode* ptr;
+    int weight;
+    int sum = 0;
+    for (ptr = T->get_first(); ptr->get_next() != NULL; ptr = ptr->get_next()) {
+        weight = Graph.get_edge_weight(ptr->get_vertex_id(), ptr->get_next()->get_vertex_id());
+        sum += weight;
+        ptr->set_vertex_weight(weight);
+    }
+    T->set_total_weight(sum);
+}*/
 
-    TreeNode* c_ptr;
-    TreeNode* r_ptr;
+int lexicographic(Tree* first_path, Tree* second_path) {
+    TreeNode* first_ptr;
+    TreeNode* second_ptr;
 
-    c_ptr = current_path->get_first();
-    r_ptr = R_i->get_first();
+    first_ptr = first_path->get_first();
+    second_ptr = second_path->get_first();
 
-    while(c_ptr != NULL && r_ptr != NULL) {
-       if(c_ptr->get_vertex_id() < r_ptr->get_vertex_id())
-           return 0;
-       else if(c_ptr->get_vertex_id() > r_ptr->get_vertex_id())
-           return 1;
-       c_ptr = c_ptr->get_next();
-       r_ptr = r_ptr->get_next();
+    while(first_ptr != NULL && second_ptr != NULL) {
+        if(first_ptr->get_vertex_id() < second_ptr->get_vertex_id())
+            return 0;
+        else if(first_ptr->get_vertex_id() > second_ptr->get_vertex_id())
+            return 1;
+        first_ptr = first_ptr->get_next();
+        second_ptr = second_ptr->get_next();
     }
 
-    if(c_ptr == NULL && r_ptr != NULL)
+    if(first_ptr == NULL && second_ptr != NULL)
         return 0;
-    else if(c_ptr != NULL && r_ptr == NULL)
+    else if(first_ptr != NULL && second_ptr == NULL)
         return 1;
     else
-        return 0;
+        return 2;
 }
 
 int lexicographic(Vertex* &vertex_array, int v, int w) {

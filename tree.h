@@ -1,5 +1,6 @@
 #ifndef TREE_H 
 #define TREE_H
+#include "adjacency_list.h"
 
 class TreeNode {
     friend class Tree;
@@ -29,10 +30,11 @@ class Tree {
         void set_last(TreeNode*);
         int get_tree_size();
         int get_total_weight();
+        void set_total_weight(int);
         void insert(int, int);
-        void insert(Tree*);
-        void insert(Tree*, int);
+        void insert(Tree*&);
         void print_tree();
+        int find_total_weight(AdjacencyList &);
 
     private:
         TreeNode* first;

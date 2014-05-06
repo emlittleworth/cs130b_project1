@@ -34,17 +34,20 @@ Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
         smallest_dist = 1000;
         for (i = 0; i < n; i++) {
             if (!vertex_array[i].known) { // if vertex is not known, look at dist
-                if (vertex_array[i].dist < smallest_dist) 
+                if (vertex_array[i].dist < smallest_dist) { 
+                    smallest_dist = vertex_array[i].dist;
                     v = i; // set v to the vertex not known with the smallest dist
+                }
             }
         }
 
         vertex_array[v].known = 1;
 
-        // if v is in tree T, then we can stop
+        // if v is in tree T, then we can stop 
         for (p = T->get_first(); p != NULL; p = p->get_next()) {
             if (p->get_vertex_id() == v) {
                 path_into_tree(vertex_array, v, return_path);
+                delete[] vertex_array;
                 return return_path;
             }
         }
@@ -58,7 +61,7 @@ Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
                     vertex_array[w].dist = vertex_array[v].dist + w_weight;
                     vertex_array[w].path = v;
                 } else if (vertex_array[v].dist + w_weight == vertex_array[w].dist) {
-                    if (lexicographic(vertex_array, v, w))
+                    if (!lexicographic(vertex_array, v, w))
                         vertex_array[w].path = v;
                 }
             }
@@ -67,6 +70,17 @@ Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
 
     // get path to return
     path_into_tree(vertex_array, v, return_path);
+    delete[] vertex_array;
     return return_path;
 }
 
+//DEBUG
+/*for (i = 0; i < n; i++) {
+cout << "v: " << i+1 << " path = ";
+cout << vertex_array[i].path << " known = ";
+cout << vertex_array[i].known << " dist = ";
+cout << vertex_array[i].dist << endl;
+}*/
+
+//cout << "v.dist + w_weight == w.dist, do lexicographic sort, between ";
+//cout << "v: " << v << " and w: " << w << "\n";//DEBUG
