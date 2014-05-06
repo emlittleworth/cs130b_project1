@@ -9,8 +9,8 @@ using namespace std;
 void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
 
     Tree* T = new Tree;
-    Tree* R_i = new Tree;
-    Tree* current_path = new Tree;
+    Tree* R_i;
+    Tree* current_path;
     int current_weight, i, j;
     int d_i = 1000;
     int group = 1000;

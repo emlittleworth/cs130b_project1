@@ -11,18 +11,6 @@ void path_into_tree(Vertex* &vertex_array, int v, Tree* &T) {
     T->insert(v, vertex_array[v].dist);
 }
 
-/*void complete_tree_weights(Tree* &T, AdjacencyList &Graph) {
-    TreeNode* ptr;
-    int weight;
-    int sum = 0;
-    for (ptr = T->get_first(); ptr->get_next() != NULL; ptr = ptr->get_next()) {
-        weight = Graph.get_edge_weight(ptr->get_vertex_id(), ptr->get_next()->get_vertex_id());
-        sum += weight;
-        ptr->set_vertex_weight(weight);
-    }
-    T->set_total_weight(sum);
-}*/
-
 int lexicographic(Tree* first_path, Tree* second_path) {
     TreeNode* first_ptr;
     TreeNode* second_ptr;
@@ -48,6 +36,8 @@ int lexicographic(Tree* first_path, Tree* second_path) {
 }
 
 int lexicographic(Vertex* &vertex_array, int v, int w) {
+    int return_value;
+
     Tree* v_path = new Tree;
     Tree* w_path = new Tree;
     TreeNode* v_ptr;
@@ -56,5 +46,8 @@ int lexicographic(Vertex* &vertex_array, int v, int w) {
     v_path->insert(v, 0); // insert v into this path since would be before w
     path_into_tree(vertex_array, w, w_path);
 
-    return lexicographic(v_path, w_path);
+    return_value = lexicographic(v_path, w_path);
+    delete v_path;
+    delete w_path;
+    return return_value;
 }
