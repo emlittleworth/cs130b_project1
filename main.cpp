@@ -4,6 +4,7 @@
 #include "adjacency_list.h"
 #include "tree.h"
 #include "algorithm1.h"
+#include "algorithm2.h"
 #include <iostream>
 using namespace std;
 
@@ -78,7 +79,7 @@ int main() {
     if (algorithm == 1)
         algorithm1(n, m, k, Graph, Groups);
     else if (algorithm == 2)
-        ;
+        algorithm2(n, m, k, Graph, Groups);
     else
         cout << "Incorrect algorithm number. Please choose 1 or 2.\n";
     

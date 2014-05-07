@@ -6,7 +6,8 @@
 using namespace std;
 
 Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
-    int i, smallest_dist, v, w, w_weight;
+    int i, v, w, w_weight;
+    long int smallest_dist;
     VertexItem* neighbor;
     Tree* return_path = new Tree;
     TreeNode* p;
@@ -31,10 +32,10 @@ Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
         }
         if (i == n) break; // if i == n, all verteces are known, we are done
 
-        smallest_dist = 1000;
+        smallest_dist = 1000000000;
         for (i = 0; i < n; i++) {
             if (!vertex_array[i].known) { // if vertex is not known, look at dist
-                if (vertex_array[i].dist < smallest_dist) { 
+                if (vertex_array[i].dist < smallest_dist) {
                     smallest_dist = vertex_array[i].dist;
                     v = i; // set v to the vertex not known with the smallest dist
                 }
