@@ -13,6 +13,7 @@ int main() {
     int n, m, k, algorithm;
     int first, second, weight;
     int group_size, vertex;
+
     cin >> n;
     cin >> m;
     cin >> k;

@@ -15,7 +15,7 @@ void algorithm2(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
     Tree* current_path = NULL;
     TreeNode* ptr = NULL;
     int current_weight, i, j, current_t_i, t_i, real_weight;
-    int d_i = 1000;
+    long int d_i = 1000000000;
     int group = 1000;
 
     // Add vertex in Groups[0] to T
@@ -33,7 +33,7 @@ void algorithm2(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
         if (i == k) // if i == k, then all groups are reached and we are done
             break;
 
-        d_i = 1000;
+        d_i = 1000000000;
         t_i = 1;
         group = 1000;
 
@@ -50,36 +50,14 @@ void algorithm2(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                 current_t_i = num_groups_in_path(current_path, Groups, k);
                 // the number of "not reached" groups that current_path visits
 
-                // compare current path to R_i and d_i
-                // not sure to include this or not
-                /*
-                if (current_weight < d_i) {
-                    R_i = current_path;
-                    d_i = current_weight;
-                    group = i;
-                } else if (current_weight == d_i) {
-                    // use lexicographic order
-                    if (!lexicographic(current_path, R_i)) {
-                        R_i = current_path;
-                        d_i = current_weight;
-                        group = i;
-                    } else if (lexicographic(current_path, R_i) == 2) {
-                        if (i < group) {
-                            R_i = current_path;
-                            d_i = current_weight;
-                            group = i;
-                        }
-                    }
-                }
-                */
 
                 // now comapre based off of d_i/t_i
-                if ((float)current_weight/current_t_i < (float)d_i/t_i) {
+                if ((double)current_weight/current_t_i < (double)d_i/t_i) {
                     R_i = current_path;
                     d_i = current_weight;
                     t_i = current_t_i;
                     group = i;
-                } else if ((float)current_weight/current_t_i == (float)d_i/t_i) {
+                } else if ((double)current_weight/current_t_i == (double)d_i/t_i) {
                     if (i < group) {
                         R_i = current_path;
                         d_i = current_weight;
@@ -88,12 +66,14 @@ void algorithm2(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                     }
                 }
                 
+                /*
                 cout << "group " << i << " current_path ";
                 current_path->print_tree();
-                cout << "with current_weight = " << current_weight << " and current_t_i = " << current_t_i << "\n"; // DEBUG
+                cout << "with d_i/t_i = " << (double)current_weight/current_t_i <<"\n"; // DEBUG
                 cout << "R_i ";
                 R_i->print_tree();
-                cout << "with d_i = " << d_i << " and t_i = " << t_i << "\n"; // DEBUG
+                cout << "with d_i/t_i = " << (double)d_i/t_i << "\n"; // DEBUG
+                */
                 
             }
         }

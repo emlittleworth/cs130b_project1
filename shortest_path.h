@@ -5,7 +5,7 @@
 
 struct Vertex {
     int known;
-    int dist;
+    long int dist;
     int path;
 };
 

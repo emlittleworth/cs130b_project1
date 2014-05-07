@@ -18,7 +18,7 @@ Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
     // vertex stuct includes known, dist, and path
     for (i = 0; i < n; i++) {
         vertex_array[i].known = 0;
-        vertex_array[i].dist = 1000;
+        vertex_array[i].dist = 1000000000;
         vertex_array[i].path = -1;
     }
 
@@ -74,14 +74,3 @@ Tree* Dijkstra(int n, int s, Tree* T, AdjacencyList &Graph) {
     delete[] vertex_array;
     return return_path;
 }
-
-//DEBUG
-/*for (i = 0; i < n; i++) {
-cout << "v: " << i+1 << " path = ";
-cout << vertex_array[i].path << " known = ";
-cout << vertex_array[i].known << " dist = ";
-cout << vertex_array[i].dist << endl;
-}*/
-
-//cout << "v.dist + w_weight == w.dist, do lexicographic sort, between ";
-//cout << "v: " << v << " and w: " << w << "\n";//DEBUG
