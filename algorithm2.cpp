@@ -63,8 +63,21 @@ void algorithm2(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                         d_i = current_weight;
                         t_i = current_t_i;
                         group = i;
+                    } else if (i == group) { // if the distances AND groups are equal, lexicographic
+                        if (!lexicographic(current_path, R_i)) {
+                            R_i = current_path;
+                            d_i = current_weight;
+                            group = i;
+                        }
                     }
                 }
+
+                /*if (Groups[19][0] && !Groups[26][0]) {
+                    cout << "group " << i << " current path w/ ratio " << (double)current_weight/current_t_i << " ";
+                    current_path->print_tree();
+                    cout << "R_i w/ ratio " << (double)d_i/t_i << " and group " << group << " ";
+                    R_i->print_tree();//DEBUGGING
+                }*/
                 
                 /*
                 cout << "group " << i << " current_path ";

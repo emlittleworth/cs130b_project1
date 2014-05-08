@@ -64,14 +64,21 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                         d_i = current_weight;
                         group = i;
                     }
+                    else if (i == group) { // if the distances AND groups are equal, lexicographic
+                        if (!lexicographic(current_path, R_i)) {
+                            R_i = current_path;
+                            d_i = current_weight;
+                            group = i;
+                        }
+                    }
                 }
+                /*if (Groups[11][0]) {
+                    cout << "group " << i << " current path w/ weight " << current_weight << " ";
+                    current_path->print_tree();
+                    cout << "R_i w/ weight " << d_i << " and group " << group << " ";
+                    R_i->print_tree();//DEBUGGING
+                }*/
             }
-            /*if (Groups[8][0] && !Groups[28][0]) {
-                cout << "group " << i << " current path ";
-                current_path->print_tree();
-                cout << "R_i ";
-                R_i->print_tree();//DEBUGGING
-            }*/
         }
 
         // add R_i to T and mark group as reached
@@ -95,7 +102,7 @@ void algorithm1(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
     merge_sort(final_array, temp, 0, T->get_tree_size()-1);
 
 
-    cout << "Printing sorted array now!\n";//DEBUGGING
+    //cout << "Printing sorted array now!\n";//DEBUGGING
     for (step = 0; step < T->get_tree_size(); step++)
         cout << final_array[step] << "\n";
     cout << T->get_total_weight() << "\n";
