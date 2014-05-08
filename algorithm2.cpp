@@ -71,29 +71,10 @@ void algorithm2(int n, int m, int k, AdjacencyList &Graph, int** &Groups) {
                         }
                     }
                 }
-
-                /*if (Groups[19][0] && !Groups[26][0]) {
-                    cout << "group " << i << " current path w/ ratio " << (double)current_weight/current_t_i << " ";
-                    current_path->print_tree();
-                    cout << "R_i w/ ratio " << (double)d_i/t_i << " and group " << group << " ";
-                    R_i->print_tree();//DEBUGGING
-                }*/
-                
-                /*
-                cout << "group " << i << " current_path ";
-                current_path->print_tree();
-                cout << "with d_i/t_i = " << (double)current_weight/current_t_i <<"\n"; // DEBUG
-                cout << "R_i ";
-                R_i->print_tree();
-                cout << "with d_i/t_i = " << (double)d_i/t_i << "\n"; // DEBUG
-                */
-                
             }
         }
 
         // add R_i to T and mark group as reached
-        //real_weight = R_i->find_total_weight(Graph); // total_weight for trees isn't totally working
-        //R_i->set_total_weight(real_weight);
         T->insert(R_i);
         // create C - a collection of all the groups visited by path R_i that are not currently reached
         C = groups_in_path(R_i, Groups, k);
